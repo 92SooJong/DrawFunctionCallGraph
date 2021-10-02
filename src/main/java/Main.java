@@ -40,12 +40,9 @@ class Main {
         placeComponents(panel); // panel에 컴포넌트 그리기
 
 
-
         // Setting the frame visibility to true
         frame.setVisible(true);
 
-
-        //start();
 
 
     }
@@ -70,11 +67,11 @@ class Main {
         startAnalyzButton.setBounds(600, 60, 150, 25);
         panel.add(startAnalyzButton);
 
-
+        // 파일선택 버튼 이벤트 처리
         chooseFileButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+
                 FileDialog fd = new FileDialog(new Frame(), "Choose a file", FileDialog.LOAD);
                 fd.setMultipleMode(true);
                 fd.setVisible(true);
@@ -83,34 +80,21 @@ class Main {
                 String filename = fd.getFile();
 
                 chooseFileText.setText(directory.concat(filename));
+
             }
         });
 
+        startAnalyzButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                FunctionCallGraph instance = FunctionCallGraph.getInstance();
+                instance.drawGraph(chooseFileText.getText());
 
 
-
-
-
-
-        
-        /* 텍스 필드를 작성한다
-         */
-//        JTextField userText = new JTextField(20);
-//        userText.setBounds(100,20,165,25);
-//        panel.add(userText);
-
-        // Same process for password label and text field.
-//        JLabel passwordLabel = new JLabel("공통파일");
-//        passwordLabel.setBounds(10,50,80,25);
-//        panel.add(passwordLabel);
-
-        /*This is similar to text field but it hides the user
-         * entered data and displays dots instead to protect
-         * the password like we normally see on login screens.
-         */
-//        JPasswordField passwordText = new JPasswordField(20);
-//        passwordText.setBounds(100,50,165,25);
-//        panel.add(passwordText);
+                //JOptionPane.showMessageDialog(panel, chooseFileText.getText());
+            }
+        });
 
 
     }
