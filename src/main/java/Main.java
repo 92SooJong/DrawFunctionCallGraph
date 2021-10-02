@@ -28,12 +28,12 @@ class Main {
         // JFrame 생성
         JFrame frame = new JFrame("Function Call Graph");
         
-        frame.setSize(1200, 800); // Frame 사이즈설정
+        frame.setSize(800, 150); // Frame 사이즈설정
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // panel은 HTML의 div태그 같은 느낌!
         JPanel panel = new JPanel();
-        panel.setSize(600,500);
+        panel.setSize(800,150);
         // frame에 panel 붙이기
         frame.add(panel);
         
@@ -52,41 +52,37 @@ class Main {
 
     private static void placeComponents( JPanel panel) {
 
-        /* We will discuss about layouts in the later sections
-         * of this tutorial. For now we are setting the layout
-         * to null
-         */
+
         panel.setLayout(null);
 
         // 불러오기 버튼 만들기
-        JButton loginButton = new JButton("파일 불러오기");
-        loginButton.setBounds(50, 20, 150, 25);
-        panel.add(loginButton);
+        JButton chooseFileButton = new JButton("파일 불러오기");
+        chooseFileButton.setBounds(50, 20, 150, 25);
+        panel.add(chooseFileButton);
 
-        JTextField userText = new JTextField(20);
-        userText.setBounds(250,20,300,25);
-        userText.setEditable(false);
-        panel.add(userText);
-
-
-        // 불러오기 버튼 만들기
-        JButton commonFile = new JButton("공통파일 불러오기");
-        commonFile.setBounds(50, 90, 150, 25);
-        panel.add(commonFile);
-        
+        JTextField chooseFileText = new JTextField(20);
+        chooseFileText.setBounds(250,20,500,25);
+        chooseFileText.setEditable(false);
+        panel.add(chooseFileText);
 
 
+        JButton startAnalyzButton = new JButton("그래프 파일 만들기");
+        startAnalyzButton.setBounds(600, 60, 150, 25);
+        panel.add(startAnalyzButton);
 
-        loginButton.addActionListener(new ActionListener() {
+
+        chooseFileButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //JOptionPane.showMessageDialog(panel, "Hello World!");
+                
                 FileDialog fd = new FileDialog(new Frame(), "Choose a file", FileDialog.LOAD);
+                fd.setMultipleMode(true);
                 fd.setVisible(true);
+
                 String directory = fd.getDirectory();
                 String filename = fd.getFile();
 
-                JOptionPane.showMessageDialog(panel, filename);
+                chooseFileText.setText(directory.concat(filename));
             }
         });
 
