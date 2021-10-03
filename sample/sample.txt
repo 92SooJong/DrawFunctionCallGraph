@@ -1,0 +1,19 @@
+scwin.a = function(a1, a2){
+
+}
+
+
+scwin.b = function(b1, b2){
+
+}
+
+
+scwin.c = function(){
+	
+	var c = scwin.a();
+}
+
+scwin.d = 
+function(){
+	var d = scwin.b(t,d);
+}

@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 /**
@@ -23,7 +25,7 @@ public class FunctionCallGraph {
 
         String allText = getFileText(filePath);
         System.out.println(allText);
-
+        getFunctions(allText);
 
 
     }
@@ -47,11 +49,43 @@ public class FunctionCallGraph {
             e.printStackTrace();
         }
 
-        return allTextInFile.replaceAll(" ","");
+        return removeAllSpace(allTextInFile);
 
     }
 
+    private String removeAllSpace(String text){
 
+        text = text.replaceAll("\t" , "");
+        text = text.replaceAll(" " , "");
+        return text;
+    }
+
+
+    private HashMap<String, ArrayList<String>> getFunctions(String text){
+
+        // 함수관계 추출
+        // scwin.으로 시작하는 문자의 위치가져오기
+        String[] texts = text.split("scwin.");
+        for (String s : texts) {
+
+            if (s.contains("=function")) {
+                String[] functionNames = s.split("=function");
+                System.out.println(functionNames[0]);
+
+            }
+
+
+        }
+
+
+
+
+
+
+
+
+        return null;
+    }
 
 
 }
