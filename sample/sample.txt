@@ -1,10 +1,11 @@
 scwin.a = function(a1, a2){
-
+	a내용
+	a내용1
 }
 
 
 scwin.b = function(b1, b2){
-
+	b내용
 }
 
 
