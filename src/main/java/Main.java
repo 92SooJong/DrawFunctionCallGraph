@@ -84,6 +84,7 @@ class Main {
             }
         });
 
+        // 분석시작 버튼 클릭 이벤트 처리
         startAnalyzButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
