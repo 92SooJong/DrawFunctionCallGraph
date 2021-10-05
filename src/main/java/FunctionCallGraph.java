@@ -49,7 +49,7 @@ public class FunctionCallGraph {
     private String getFileText(String filePath){
         StringBuilder allTextInFile = new StringBuilder();
         try {
-            //File myObj = new File(filePath);
+
             BufferedReader br = new BufferedReader(new FileReader(filePath));
             StringBuilder sb = new StringBuilder();
             String line = br.readLine();
@@ -72,7 +72,7 @@ public class FunctionCallGraph {
     }
 
     private String removeAllSpace(String text){
-
+        text = text.replaceAll("=asyncfunction" , "=function");
         text = text.replaceAll("\t" , "");
         text = text.replaceAll(" " , "");
         return text;
