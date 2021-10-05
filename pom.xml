@@ -7,6 +7,7 @@
     <groupId>org.example</groupId>
     <artifactId>graphviz</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -19,9 +20,6 @@
             <artifactId>graphviz-java</artifactId>
             <version>0.18.1</version>
         </dependency>
-
-
-
     </dependencies>
 
     <build>
@@ -37,33 +35,32 @@
                             <goal>copy-dependencies</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${project.build.directory}/${project.build.finalName}.lib</outputDirectory>
+                            <outputDirectory>
+                                ${project.build.directory}/libs
+                            </outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.2.0</version>
                 <configuration>
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>Main</mainClass>
-                            <classpathPrefix>${project.build.finalName}.lib/</classpathPrefix>
-
+                            <classpathPrefix>libs/</classpathPrefix>
+                            <mainClass>
+                                Main
+                            </mainClass>
                         </manifest>
                     </archive>
                 </configuration>
             </plugin>
 
-
-
         </plugins>
-    </build>
 
+    </build>
 
 
 </project>

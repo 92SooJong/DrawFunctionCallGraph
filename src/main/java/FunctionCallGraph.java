@@ -3,24 +3,19 @@
 import guru.nidi.graphviz.attribute.Color;
 import guru.nidi.graphviz.attribute.Font;
 import guru.nidi.graphviz.attribute.Rank;
-import guru.nidi.graphviz.attribute.Style;
 import guru.nidi.graphviz.engine.Format;
 import guru.nidi.graphviz.engine.Graphviz;
 import guru.nidi.graphviz.model.Graph;
 import guru.nidi.graphviz.model.Node;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
 
-import static guru.nidi.graphviz.attribute.Attributes.attr;
 import static guru.nidi.graphviz.attribute.Rank.RankDir.LEFT_TO_RIGHT;
 import static guru.nidi.graphviz.model.Factory.graph;
 import static guru.nidi.graphviz.model.Factory.node;
-import static guru.nidi.graphviz.model.Link.to;
+
 
 /**
  *  Singleton
@@ -39,7 +34,7 @@ public class FunctionCallGraph {
         return single_instance;
     }
 
-    public void drawGraph(String filePath){
+    public void drawGraph(String filePath) {
 
         String allText = getFileText(filePath);
         System.out.println(allText);
@@ -52,24 +47,27 @@ public class FunctionCallGraph {
 
 
     private String getFileText(String filePath){
-        String allTextInFile = "";
+        StringBuilder allTextInFile = new StringBuilder();
         try {
-            File myObj = new File(filePath);
-            Scanner myReader = new Scanner(myObj);
-            while (myReader.hasNextLine()) {
-                String data = myReader.nextLine();
-                allTextInFile += data;
+            //File myObj = new File(filePath);
+            BufferedReader br = new BufferedReader(new FileReader(filePath));
+            StringBuilder sb = new StringBuilder();
+            String line = br.readLine();
 
+            while (line != null) {
+                sb.append(line);
+                sb.append(System.lineSeparator());
+                line = br.readLine();
+                allTextInFile.append(line);
             }
-            myReader.close();
 
-        } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
         System.out.println("allTextInFile = " + allTextInFile);
-        return removeAllSpace(allTextInFile);
+        return removeAllSpace(allTextInFile.toString());
 
     }
 
