@@ -6,9 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="DrawFunctionCallGraph" />
         <module name="graphviz" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="DrawFunctionCallGraph" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>

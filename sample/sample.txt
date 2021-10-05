@@ -17,4 +17,10 @@ scwin.c = function(){
 scwin.d = 
 function(){
 	var d = scwin.b(t,d);
+	scwin.c();
+}
+
+scwin.e = 
+function(){
+	
 }
