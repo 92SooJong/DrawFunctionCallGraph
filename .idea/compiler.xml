@@ -10,5 +10,8 @@
         <module name="DrawFunctionCallGraph" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="DrawFunctionCallGraph" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>
