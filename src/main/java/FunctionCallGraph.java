@@ -164,7 +164,7 @@ public class FunctionCallGraph {
                 .with(aaa);
 
         try {
-            Graphviz.fromGraph(g).height(100).render(Format.SVG).toFile(new File("C:/graph/ex1.html"));
+            Graphviz.fromGraph(g).height(700).render(Format.SVG).toFile(new File("C:/graph/ex1.html"));
         } catch (IOException e) {
             e.printStackTrace();
         }
