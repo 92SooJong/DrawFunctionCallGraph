@@ -36,9 +36,8 @@ public class FunctionCallGraph {
 
     public void drawGraph(String filePath) {
 
-        String allText = getFileText(filePath);
-        System.out.println(allText);
-        HashMap<String, ArrayList<String>> functionMap = getFunctions(allText);
+        String textInFile = getFileText(filePath);
+        HashMap<String, ArrayList<String>> functionMap = getFunctions(textInFile);
         drawNode(functionMap);
 
 
@@ -49,32 +48,33 @@ public class FunctionCallGraph {
     private String getFileText(String filePath){
         StringBuilder allTextInFile = new StringBuilder();
         try {
-            //File myObj = new File(filePath);
             BufferedReader br = new BufferedReader(new FileReader(filePath));
             StringBuilder sb = new StringBuilder();
+
             String line = br.readLine();
 
             while (line != null) {
-                sb.append(line);
-                sb.append(System.lineSeparator());
+                sb.append(line.replaceAll("\n",""));
+                //sb.append(System.lineSeparator());
+                allTextInFile.append(sb);
+                sb.setLength(0);
                 line = br.readLine();
-                allTextInFile.append(line);
             }
-
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        System.out.println("allTextInFile = " + allTextInFile);
-        return removeAllSpace(allTextInFile.toString());
+        return removeNeedlessText(allTextInFile.toString());
 
     }
 
-    private String removeAllSpace(String text){
+    private String removeNeedlessText(String text){
 
         text = text.replaceAll("\t" , "");
         text = text.replaceAll(" " , "");
+
+        System.out.println("text = " + text);
         return text;
     }
 
@@ -149,13 +149,6 @@ public class FunctionCallGraph {
             }
 
         });
-
-
-//        aaa.add(node("a").with(Color.RED).link(node("b")));
-//        aaa.add(node("b").link(
-//                to(node("c")).with(attr("weight", 5), Style.DASHED)
-//        ));
-
 
         Graph g = graph("example1").directed()
                 .graphAttr().with(Rank.dir(LEFT_TO_RIGHT))
