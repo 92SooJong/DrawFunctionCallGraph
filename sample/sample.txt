@@ -1,26 +1,31 @@
+
 scwin.a = function(a1, a2){
 	a내용
-	a내용1
+	a내용1 
+
+
+
 }
 
 
+/* scwin.b()에 대한 주석 */
 scwin.b = function(b1, b2){
 	b내용
 }
 
-
+// scwin.c()에 대한 주석
 scwin.c = function(){
 	
-	var c = scwin.a();
+	var c = scwin.a();/*scwin.a()에대한 주석*/
 }
 
 scwin.d = 
 function(){
 	var d = scwin.b(t,d);
-	scwin.c();
+	scwin.c();//scwin.c()에 대한 주석
 }
 
 scwin.e = 
 function(){
-	
+	/*scwin.a()에 대한 주석*/
 }

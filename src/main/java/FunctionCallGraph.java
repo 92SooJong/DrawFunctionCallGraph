@@ -49,15 +49,16 @@ public class FunctionCallGraph {
         StringBuilder allTextInFile = new StringBuilder();
         try {
             BufferedReader br = new BufferedReader(new FileReader(filePath));
-            StringBuilder sb = new StringBuilder();
-
             String line = br.readLine();
 
             while (line != null) {
-                sb.append(line.replaceAll("\n",""));
-                //sb.append(System.lineSeparator());
-                allTextInFile.append(sb);
-                sb.setLength(0);
+                if(line.startsWith("//")) {
+                    line = br.readLine();
+                    continue;
+                }
+
+                allTextInFile.append(line);
+                allTextInFile.append(System.lineSeparator());
                 line = br.readLine();
             }
 
@@ -65,16 +66,30 @@ public class FunctionCallGraph {
             e.printStackTrace();
         }
 
+        System.out.println("allTextInFile = " + allTextInFile);
         return removeNeedlessText(allTextInFile.toString());
 
     }
 
     private String removeNeedlessText(String text){
 
+        // 주석제거
+        while(true){
+            int commentStartIndex = text.indexOf("/*");
+            int commentEndIndex = text.indexOf("*/");
+
+            if(commentStartIndex == -1 ) break;
+
+            System.out.println("text = " + text);
+            // 종료위치 +2를 해야 */ 문자까지 제거된다.
+            text = text.substring(0,commentStartIndex-2).concat(text.substring(commentEndIndex+2));
+        }
+
         text = text.replaceAll("\t" , "");
         text = text.replaceAll(" " , "");
 
         System.out.println("text = " + text);
+
         return text;
     }
 

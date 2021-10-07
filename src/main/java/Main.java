@@ -25,8 +25,6 @@ class Main {
         
         placeComponents(panel); // panel에 컴포넌트 그리기
 
-        //start();
-        // Setting the frame visibility to true
         frame.setVisible(true);
 
 
@@ -80,9 +78,6 @@ class Main {
 
                 instance.drawGraph(chooseFileText.getText());
 
-
-
-                //JOptionPane.showMessageDialog(panel, chooseFileText.getText());
             }
         });
 
