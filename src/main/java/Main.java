@@ -9,6 +9,8 @@ import java.io.IOException;
 
 class Main {
 
+    private static String fileName;
+
     public static void main(String[] args){
 
         // JFrame 생성
@@ -61,9 +63,9 @@ class Main {
                 fd.setVisible(true);
 
                 String directory = fd.getDirectory();
-                String filename = fd.getFile();
+                fileName = fd.getFile();
 
-                chooseFileText.setText(directory.concat(filename));
+                chooseFileText.setText(directory.concat(fileName));
 
             }
         });
@@ -76,7 +78,7 @@ class Main {
                 FunctionCallGraph instance = FunctionCallGraph.getInstance();
 
 
-                instance.drawGraph(chooseFileText.getText());
+                instance.drawGraph(chooseFileText.getText(),fileName);
 
             }
         });
