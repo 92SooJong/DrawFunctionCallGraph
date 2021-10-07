@@ -161,7 +161,7 @@ public class FunctionCallGraph {
             } else {
 
                 for (String function : functionList) {
-                    aaa.add(node(key).with(Color.RED).link(function));
+                    aaa.add(node(key).with(Color.BLACK).link(function));
                 }
             }
 
@@ -174,7 +174,7 @@ public class FunctionCallGraph {
                 .with(aaa);
 
         try {
-            Graphviz.fromGraph(g).height(400).render(Format.SVG).toFile(new File("C:/graph/" + fileName +"_graph.html"));
+            Graphviz.fromGraph(g).height(900).render(Format.SVG).toFile(new File("C:/graph/" + fileName +"_graph.html"));
         } catch (IOException e) {
             e.printStackTrace();
         }
