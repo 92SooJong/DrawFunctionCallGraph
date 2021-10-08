@@ -38,8 +38,9 @@ public class FunctionCallGraph {
     public void drawGraph(String filePath, String fileName) {
 
         String textInFile = getFileText(filePath);
-        HashMap<String, LinkedHashSet<String>> functionMap = getFunctions(textInFile);
-        drawNode(functionMap,fileName);
+        //HashMap<String, LinkedHashSet<String>> functionMap = getFunctions2(textInFile);
+        getFunctions(textInFile);
+        //drawNode(functionMap,fileName);
 
 
     }
@@ -53,13 +54,11 @@ public class FunctionCallGraph {
             String line = br.readLine();
 
             while (line != null) {
-                if(line.startsWith("//")) {
-                    line = br.readLine();
-                    continue;
+                // 한줄 주석 제거
+                if(line.contains("//")) {
+                    line = line.substring(0,line.indexOf("//"));
                 }
-
                 allTextInFile.append(line);
-                allTextInFile.append(System.lineSeparator());
                 line = br.readLine();
             }
 
@@ -67,7 +66,6 @@ public class FunctionCallGraph {
             e.printStackTrace();
         }
 
-        System.out.println("allTextInFile = " + allTextInFile);
         return removeNeedlessText(allTextInFile.toString());
 
     }
@@ -81,21 +79,52 @@ public class FunctionCallGraph {
 
             if(commentStartIndex == -1 ) break;
 
-            System.out.println("text = " + text);
+
             // 종료위치 +2를 해야 */ 문자까지 제거된다.
             text = text.substring(0,commentStartIndex-2).concat(text.substring(commentEndIndex+2));
         }
 
         text = text.replaceAll("\t" , "");
+        text = text.replaceAll(";" , "");
         text = text.replaceAll(" " , "");
 
-        System.out.println("text = " + text);
+        System.out.println("불필요한문자 제거 완료 = " + text);
 
         return text;
     }
 
 
-    private HashMap<String, LinkedHashSet<String>> getFunctions(String text){
+    private LinkedHashSet<String> getFunctions(String textInFile){
+
+        LinkedHashSet<String> result = new LinkedHashSet<>();
+
+        textInFile = "}" + textInFile;
+        System.out.println("textInFile = " + textInFile);
+
+
+
+
+
+
+//        while(true){
+//
+//            endIndex = textInFile.indexOf("=function(");
+//            lastIndex = textInFile.lastIndexOf("}",0);
+//
+//
+//
+//        }
+
+
+
+
+
+        return result;
+    }
+
+
+
+    private HashMap<String, LinkedHashSet<String>> getFunctions2(String text){
 
         // 함수관계 추출
         // scwin.으로 시작하는 문자의 위치가져오기
