@@ -9,7 +9,7 @@ scwin.a = function(a1, a2){
 
 
 /* scwin.b()에 대한 주석 */
-scwin.b = function(b1, b2){
+scwin.b = async function(b1, b2){
 	b내용
 }
 

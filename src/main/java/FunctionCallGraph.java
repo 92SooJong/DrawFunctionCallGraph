@@ -38,10 +38,8 @@ public class FunctionCallGraph {
     public void drawGraph(String filePath, String fileName) {
 
         String textInFile = getFileText(filePath); // 파일내의 Text를 가져온다
-
-
         HashMap<String, LinkedHashSet<String>> functionMap = getFunctions(textInFile);
-        drawNode(functionMap,fileName);
+        //drawNode(functionMap,fileName);
 
 
     }
@@ -55,22 +53,18 @@ public class FunctionCallGraph {
             String line = br.readLine();
 
             while (line != null) {
-
+                // 한줄 주석 제거
                 if( line.contains("//")){
                     line = line.substring(0,line.indexOf("//"));
                 }
 
                 allTextInFile.append(line);
-                allTextInFile.append(System.lineSeparator());
                 line = br.readLine();
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-
 
         return removeNeedlessText(allTextInFile.toString());
 
@@ -89,24 +83,49 @@ public class FunctionCallGraph {
             // No more Multi line comment
             if(commentStartIndex == -1 ) break;
 
-            text = text.substring(0,commentStartIndex-2).concat(text.substring(commentEndIndex+2));
+            text = text.substring(0,commentStartIndex).concat(text.substring(commentEndIndex+2));
 
 
         }
 
         String result = text;
-        //result = result.replaceAll("async function" , "function"); // async 함수를 일반함수로
-        //result = result.replaceAll("\n" , "");
-        //result = result.replaceAll("\t" , "");
-        //result = result.replaceAll(" " , "");
+        result = result.replaceAll("async function" , "function"); // async 함수를 일반함수로
+        result = result.replaceAll(" " , "");
+        result = result.replaceAll("\t" , "");
 
         System.out.println("result = " + result);
 
         return result;
     }
 
-
     private HashMap<String, LinkedHashSet<String>> getFunctions(String text){
+
+        text = "}" + text;
+
+        while (text.contains("=function(")) {
+
+            // 1. 앞에서부터 "=function"의 위치를 구한다.
+            int functionDefinitionIndex = text.indexOf("=function(");
+            // 2. 1번에서 구한 "=function"의 위치를 끝으로 하는 문자열을 만든다.
+            String textToFunction = text.substring(0, functionDefinitionIndex);
+            // 3. 2번에서구한 문자열에서 가장마지막 "}"의 위치를 구한다.
+            int lastBraketIndex = textToFunction.lastIndexOf("}");
+            // 4. 3번에서 구한 위치와 1번에서 구한 위치 사이에 있는 문자를 가져온다( 함수가 된다. )
+            textToFunction = textToFunction.substring(lastBraketIndex + 1, functionDefinitionIndex);
+            System.out.println("textToFunction = " + textToFunction);
+            // 5. 다음 작업을 위해 1번에서 구한 위치의 이전 Text는 제거한다.
+            text = text.substring(functionDefinitionIndex + "=function(".length());
+        }
+
+
+
+
+        return null;
+
+
+    }
+
+    private HashMap<String, LinkedHashSet<String>> getFunctions1(String text){
 
         // 함수관계 추출
         // scwin.으로 시작하는 문자의 위치가져오기
