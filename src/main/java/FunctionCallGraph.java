@@ -37,7 +37,9 @@ public class FunctionCallGraph {
 
     public void drawGraph(String filePath, String fileName) {
 
-        String textInFile = getFileText(filePath);
+        String textInFile = getFileText(filePath); // 파일내의 Text를 가져온다
+
+
         HashMap<String, LinkedHashSet<String>> functionMap = getFunctions(textInFile);
         drawNode(functionMap,fileName);
 
@@ -53,9 +55,9 @@ public class FunctionCallGraph {
             String line = br.readLine();
 
             while (line != null) {
-                if(line.startsWith("//")) {
-                    line = br.readLine();
-                    continue;
+
+                if( line.contains("//")){
+                    line = line.substring(0,line.indexOf("//"));
                 }
 
                 allTextInFile.append(line);
@@ -67,31 +69,40 @@ public class FunctionCallGraph {
             e.printStackTrace();
         }
 
-        System.out.println("allTextInFile = " + allTextInFile);
+
+
+
         return removeNeedlessText(allTextInFile.toString());
 
     }
 
+
     private String removeNeedlessText(String text){
 
-        // 주석제거
+
+
+        // remove Multi line comment
         while(true){
             int commentStartIndex = text.indexOf("/*");
             int commentEndIndex = text.indexOf("*/");
 
+            // No more Multi line comment
             if(commentStartIndex == -1 ) break;
 
-            System.out.println("text = " + text);
-            // 종료위치 +2를 해야 */ 문자까지 제거된다.
             text = text.substring(0,commentStartIndex-2).concat(text.substring(commentEndIndex+2));
+
+
         }
 
-        text = text.replaceAll("\t" , "");
-        text = text.replaceAll(" " , "");
+        String result = text;
+        //result = result.replaceAll("async function" , "function"); // async 함수를 일반함수로
+        //result = result.replaceAll("\n" , "");
+        //result = result.replaceAll("\t" , "");
+        //result = result.replaceAll(" " , "");
 
-        System.out.println("text = " + text);
+        System.out.println("result = " + result);
 
-        return text;
+        return result;
     }
 
 
