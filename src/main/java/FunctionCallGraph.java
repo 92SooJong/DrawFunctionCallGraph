@@ -127,7 +127,7 @@ public class FunctionCallGraph {
 
     private HashMap<String, ArrayList<String>> getFunctionMap(ArrayList<String> functions,String textInFile) {
 
-        HashMap<String,ArrayList<String>> result = new HashMap<String,ArrayList<String>>();
+        HashMap<String,ArrayList<String>> result = new HashMap<>();
 
         for (int i=0; i<functions.size(); i++) {
             String functionName = functions.get(i);
