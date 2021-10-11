@@ -1,16 +1,14 @@
 
 scwin.a = function(a1, a2){
-	a내용
-	a내용1 
-
-
-
+	...
+	// a에대한 내용
+	...
 }
 
 
 /* scwin.b()에 대한 주석 */
 scwin.b = async function(b1, b2){
-	b내용
+	// scwin.b에 대한 내용...
 }
 
 // scwin.c()에 대한 주석
@@ -27,5 +25,23 @@ function(){
 
 scwin.e = 
 function(){
-	/*scwin.a()에 대한 주석*/
+	/*scwin.e()에 대한 주석*/
+}
+
+scwin.f = function(){
+	scwin.a();
+	scwin.b();
+}
+
+scwin.g = function(){
+	scwin.f();
+	scwin.i();
+}
+
+scwin.h = function(){
+	scwin.b();
+}
+
+scwin.i = function(){
+	scwin.h();
 }

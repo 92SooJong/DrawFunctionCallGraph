@@ -18,21 +18,10 @@ import static guru.nidi.graphviz.model.Factory.graph;
 import static guru.nidi.graphviz.model.Factory.node;
 
 
-/**
- *  Singleton
- */
 public class FunctionCallGraph {
 
-    private static FunctionCallGraph single_instance = null;
 
-    private FunctionCallGraph(){
-
-    }
-
-    public static FunctionCallGraph getInstance() {
-        if (single_instance == null)
-            single_instance = new FunctionCallGraph();
-        return single_instance;
+    public FunctionCallGraph() {
     }
 
     public void drawGraph(String filePath, String fileName) {

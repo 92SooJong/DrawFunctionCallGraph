@@ -3,7 +3,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import java.io.IOException;
 
 
 
@@ -75,7 +74,7 @@ class Main {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                FunctionCallGraph instance = FunctionCallGraph.getInstance();
+                FunctionCallGraph instance = new FunctionCallGraph();
 
 
                 instance.drawGraph(chooseFileText.getText(),fileName);
