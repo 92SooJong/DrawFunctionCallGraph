@@ -18,8 +18,6 @@
 ```
 
 ### This is my sample source file. Syntax is my company's in-house front-end solution. It's based on javascript.
-### Javascript is interpreter language so I extract function by using only `substring`, `indexof` and `lastindexof`
-
 ```javascript
 
 
@@ -71,5 +69,7 @@ scwin.i = function(){
 }
 ```
 
+### Javascript is interpreter language so I extract function by using only `substring`, `indexof` and `lastindexof`
+### If you want to change the way of extracting functions and mapping functions, modify `getFunctions` and `getFunctionMap` method.
 
 
