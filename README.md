@@ -20,33 +20,34 @@ When You click "Create Graph", this method called.
 This is my sample source file. ( Source code is my company's in-house front-end engine syntax. It's based on javascript. )
 ```javascript
 
+
 scwin.a = function(a1, a2){
 	...
-	// a에대한 내용
+	blah blah
 	...
 }
 
 
-/* scwin.b()에 대한 주석 */
+/* scwin.b()'s comment */
 scwin.b = async function(b1, b2){
-	// scwin.b에 대한 내용...
+	// scwin.b blah blah
 }
 
-// scwin.c()에 대한 주석
+// scwin.c()'s comment
 scwin.c = function(){
 	
-	var c = scwin.a();/*scwin.a()에대한 주석*/
+	var c = scwin.a(); /*scwin.a()'s comment*/
 }
 
 scwin.d = 
 function(){
 	var d = scwin.b(t,d);
-	scwin.c();//scwin.c()에 대한 주석
+	scwin.c();//scwin.c()'s comment
 }
 
 scwin.e = 
 function(){
-	/*scwin.e()에 대한 주석*/
+	/*scwin.e()'s comment*/
 }
 
 scwin.f = function(){
@@ -67,3 +68,6 @@ scwin.i = function(){
 	scwin.h();
 }
 ```
+
+
+
