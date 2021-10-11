@@ -31,7 +31,6 @@ public class FunctionCallGraph {
         HashMap<String,ArrayList<String>> functionMap = getFunctionMap(functions,textInFile);
         drawNode(functionMap,fileName);
 
-
     }
 
 

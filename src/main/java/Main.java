@@ -38,7 +38,7 @@ class Main {
         panel.setLayout(null);
 
         // 불러오기 버튼 만들기
-        JButton chooseFileButton = new JButton("파일 불러오기");
+        JButton chooseFileButton = new JButton("Load File");
         chooseFileButton.setBounds(50, 20, 150, 25);
         panel.add(chooseFileButton);
 
@@ -48,7 +48,7 @@ class Main {
         panel.add(chooseFileText);
 
 
-        JButton startAnalyzButton = new JButton("그래프 파일 만들기");
+        JButton startAnalyzButton = new JButton("Create Graph");
         startAnalyzButton.setBounds(600, 60, 150, 25);
         panel.add(startAnalyzButton);
 
