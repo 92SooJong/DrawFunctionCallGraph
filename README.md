@@ -16,7 +16,9 @@ When You click "Create Graph", this method called.
     }
 ```
 
-This is my sample source file. ( Source code is my company's in-house front-end engine syntax. It's based on javascript. )
+This is my sample source file. Syntax is my company's in-house front-end solution. It's based on javascript.
+Javascript is interpreter language so I extract function by using only `substring` and `indexof` ( `lastindexof`)
+
 ```javascript
 
 
