@@ -3,7 +3,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import java.io.IOException;
 
 
 
@@ -15,7 +14,7 @@ class Main {
 
         // JFrame 생성
         JFrame frame = new JFrame("Function Call Graph");
-        
+
         frame.setSize(800, 150); // Frame 사이즈설정
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -24,7 +23,7 @@ class Main {
         panel.setSize(800,150);
         // frame에 panel 붙이기
         frame.add(panel);
-        
+
         placeComponents(panel); // panel에 컴포넌트 그리기
 
         frame.setVisible(true);
@@ -39,7 +38,7 @@ class Main {
         panel.setLayout(null);
 
         // 불러오기 버튼 만들기
-        JButton chooseFileButton = new JButton("파일 불러오기");
+        JButton chooseFileButton = new JButton("Load File");
         chooseFileButton.setBounds(50, 20, 150, 25);
         panel.add(chooseFileButton);
 
@@ -49,7 +48,7 @@ class Main {
         panel.add(chooseFileText);
 
 
-        JButton startAnalyzButton = new JButton("그래프 파일 만들기");
+        JButton startAnalyzButton = new JButton("Create Graph");
         startAnalyzButton.setBounds(600, 60, 150, 25);
         panel.add(startAnalyzButton);
 
@@ -75,7 +74,7 @@ class Main {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                FunctionCallGraph instance = FunctionCallGraph.getInstance();
+                FunctionCallGraph instance = new FunctionCallGraph();
 
 
                 instance.drawGraph(chooseFileText.getText(),fileName);

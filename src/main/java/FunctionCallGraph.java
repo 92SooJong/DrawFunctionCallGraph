@@ -1,5 +1,3 @@
-
-
 import guru.nidi.graphviz.attribute.Color;
 import guru.nidi.graphviz.attribute.Font;
 import guru.nidi.graphviz.attribute.Rank;
@@ -18,32 +16,21 @@ import static guru.nidi.graphviz.model.Factory.graph;
 import static guru.nidi.graphviz.model.Factory.node;
 
 
-/**
- *  Singleton
- */
 public class FunctionCallGraph {
 
-    private static FunctionCallGraph single_instance = null;
 
-    private FunctionCallGraph(){
-
-    }
-
-    public static FunctionCallGraph getInstance() {
-        if (single_instance == null)
-            single_instance = new FunctionCallGraph();
-        return single_instance;
+    public FunctionCallGraph() {
     }
 
     public void drawGraph(String filePath, String fileName) {
 
-        String textInFile = getFileText(filePath);
-        //HashMap<String, LinkedHashSet<String>> functionMap = getFunctions2(textInFile);
-        getFunctions(textInFile);
-        //drawNode(functionMap,fileName);
-
+        String textInFile = getFileText(filePath); // 파일내의 Text를 가져온다
+        ArrayList<String> functions = getFunctions(textInFile);
+        HashMap<String,ArrayList<String>> functionMap = getFunctionMap(functions,textInFile);
+        drawNode(functionMap,fileName);
 
     }
+
 
 
 
@@ -55,9 +42,10 @@ public class FunctionCallGraph {
 
             while (line != null) {
                 // 한줄 주석 제거
-                if(line.contains("//")) {
+                if( line.contains("//")){
                     line = line.substring(0,line.indexOf("//"));
                 }
+
                 allTextInFile.append(line);
                 line = br.readLine();
             }
@@ -70,127 +58,109 @@ public class FunctionCallGraph {
 
     }
 
+
     private String removeNeedlessText(String text){
 
-        // 주석제거
+
+
+        // remove Multi line comment
         while(true){
             int commentStartIndex = text.indexOf("/*");
             int commentEndIndex = text.indexOf("*/");
 
+            // No more Multi line comment
             if(commentStartIndex == -1 ) break;
 
+            text = text.substring(0,commentStartIndex).concat(text.substring(commentEndIndex+2));
 
-            // 종료위치 +2를 해야 */ 문자까지 제거된다.
-            text = text.substring(0,commentStartIndex-2).concat(text.substring(commentEndIndex+2));
+
         }
 
-        text = text.replaceAll("\t" , "");
-        text = text.replaceAll(";" , "");
-        text = text.replaceAll(" " , "");
+        String result = text;
+        result = result.replaceAll("async function" , "function"); // async 함수를 일반함수로
+        result = result.replaceAll(" " , "");
+        result = result.replaceAll("\t" , "");
 
-        System.out.println("불필요한문자 제거 완료 = " + text);
-
-        return text;
-    }
-
-
-    private LinkedHashSet<String> getFunctions(String textInFile){
-
-        LinkedHashSet<String> result = new LinkedHashSet<>();
-
-        textInFile = "}" + textInFile;
-        System.out.println("textInFile = " + textInFile);
-
-
-
-
-
-
-//        while(true){
-//
-//            endIndex = textInFile.indexOf("=function(");
-//            lastIndex = textInFile.lastIndexOf("}",0);
-//
-//
-//
-//        }
-
-
-
-
+        System.out.println("result = " + result);
 
         return result;
     }
 
+    private ArrayList<String> getFunctions(String text){
 
+        ArrayList<String> functions = new ArrayList<>();
 
-    private HashMap<String, LinkedHashSet<String>> getFunctions2(String text){
+        text = "}" + text;
+        while (text.contains("=function(")) {
 
-        // 함수관계 추출
-        // scwin.으로 시작하는 문자의 위치가져오기
-        String[] texts = text.split("scwin.");
-        ArrayList<String> functionList = new ArrayList<>();
-        for (String s : texts) {
-            // 함수 목록을 가져온다
-            if (s.contains("=function")) {
-                String[] functionNames = s.split("=function");
-                functionList.add(functionNames[0]);
-            }
+            // 1. 앞에서부터 "=function"의 위치를 구한다.
+            int functionDefinitionIndex = text.indexOf("=function(");
+            // 2. 1번에서 구한 "=function"의 위치를 끝으로 하는 문자열을 만든다.
+            String textToFunction = text.substring(0, functionDefinitionIndex);
+            // 3. 2번에서구한 문자열에서 가장 마지막 "}"의 위치를 구한다.
+            int lastBraketIndex = textToFunction.lastIndexOf("}");
+            // 4. 3번에서 구한 위치와 1번에서 구한 위치 사이에 있는 문자를 가져온다( 가져온 문자가 함수명이다! )
+            textToFunction = textToFunction.substring(lastBraketIndex + 1, functionDefinitionIndex);
+            functions.add(textToFunction);
+            // 5. 다음 작업을 위해 1번에서 구한 위치의 이전 Text는 제거한다.
+            text = text.substring(functionDefinitionIndex + "=function(".length());
         }
 
-        // 해당 함수의 내용을 가져오기
-        System.out.println("functionList = " + functionList);
-        HashMap<String,String> bodyByFunction = new HashMap<>();
-        for(int i=0; i<functionList.size(); i++){
+        return functions;
 
-            String definitionFunction = "scwin." + functionList.get(i) + "=function(";
-            String body ="";
-            if(i < functionList.size()-1){
-                String nextFunction = "scwin." + functionList.get(i+1) + "=function(";
-                int start = text.indexOf(definitionFunction);
-                int end = text.indexOf(nextFunction);
-                body = text.substring(start,end);
+
+    }
+
+    private HashMap<String, ArrayList<String>> getFunctionMap(ArrayList<String> functions,String textInFile) {
+
+        HashMap<String,ArrayList<String>> result = new HashMap<>();
+
+        for (int i=0; i<functions.size(); i++) {
+            String functionName = functions.get(i);
+            String functionDefinition = functionName.concat("=function(");
+            int functionStartIndex = textInFile.indexOf(functionDefinition);
+            String functionDefinitionAndBody;
+
+            if(functions.size() > i+1){
+                String nextFunctionDefinition = functions.get(i+1);
+                int functionEndIndex = textInFile.indexOf(nextFunctionDefinition.concat("=function("));
+                functionDefinitionAndBody = textInFile.substring(functionStartIndex,functionEndIndex);
             } else {
-
-                int start = text.indexOf(definitionFunction);
-                body = text.substring(start);
+                functionDefinitionAndBody = textInFile.substring(functionStartIndex);
             }
 
-            body = body.replaceAll( "scwin." + functionList.get(i) , "");
-            bodyByFunction.put(functionList.get(i) , body);
+            String body = functionDefinitionAndBody.substring(functionDefinitionAndBody.indexOf("{"),functionDefinitionAndBody.lastIndexOf("}")+1);
 
-        }
-
-        HashMap<String,LinkedHashSet<String>> result = new HashMap<>();
-        bodyByFunction.forEach((key,value) ->{
-            result.put(key, new LinkedHashSet<>());
-            System.out.println("value = " + value);
-            for(String functionName : functionList){
-                if(value.contains("scwin."+functionName)){
-                    System.out.println("functionName = " + functionName);
-                    result.get(key).add(functionName);
+            System.out.println("body = " + body);
+            ArrayList<String> callFunctions = new ArrayList<>();
+            for(String function : functions){
+                if(body.contains(function+"(")){
+                    callFunctions.add(function);
                 }
             }
+            result.put(functionName , callFunctions);
 
-        });
+        }
 
-        System.out.println(result);
-
+        System.out.println("result = " + result);
         return result;
+
+
     }
 
-    private void drawNode(HashMap<String, LinkedHashSet<String>> functionMap,String fileName){
 
-        ArrayList<Node> aaa = new ArrayList<>();
+    private void drawNode(HashMap<String,ArrayList<String>> functionMap,String fileName){
+
+        ArrayList<Node> nodes = new ArrayList<>();
 
         functionMap.forEach((key,functionList) ->{
 
             if(functionList.size() == 0){
-                aaa.add(node(key));
+                nodes.add(node(key));
             } else {
 
                 for (String function : functionList) {
-                    aaa.add(node(key).with(Color.BLACK).link(function));
+                    nodes.add(node(key).with(Color.BLACK).link(function));
                 }
             }
 
@@ -200,10 +170,10 @@ public class FunctionCallGraph {
                 .graphAttr().with(Rank.dir(LEFT_TO_RIGHT))
                 .nodeAttr().with(Font.name("arial"))
                 .linkAttr().with("class", "link-class")
-                .with(aaa);
+                .with(nodes);
 
         try {
-            Graphviz.fromGraph(g).height(900).render(Format.SVG).toFile(new File("C:/graph/" + fileName +"_graph.html"));
+            Graphviz.fromGraph(g).height(600).render(Format.SVG).toFile(new File("C:/graph/" + fileName +"_graph.html"));
         } catch (IOException e) {
             e.printStackTrace();
         }
