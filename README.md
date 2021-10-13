@@ -6,6 +6,9 @@ I extract functions(mostly using substring) from source file and create function
 
 ![image](./images/run.png)
 
+![image](./images/result.png)
+
+
 
 When You click "Create Graph", this method is called.
 ```java
