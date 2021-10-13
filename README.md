@@ -1,26 +1,17 @@
 # Draw Function Call Graph With graphviz
 
 
+
 I extract functions(mostly using substring) from source file and create function call graph using graphViz. 
 
+## Result
 
 ![image](./images/run.png)
 
 ![image](./images/result.png)
 
 
-
-When You click "Create Graph", this method is called.
-```java
-  public void drawGraph(String filePath, String fileName) {
-
-        String textInFile = getFileText(filePath); // get text from source file.
-        ArrayList<String> functions = getFunctions(textInFile); // get defined function
-        HashMap<String,ArrayList<String>> functionMap = getFunctionMap(functions,textInFile);
-        drawNode(functionMap,fileName); // draw graph
-        
-    }
-```
+## Sample File
 
 This is my sample source file. Syntax is my company's in-house front-end solution. It's based on javascript. Javascript is interpreter language so I extract function by using only `substring`, `indexof` and `lastindexof`. If you want to change the way of extracting functions and mapping functions, modify `getFunctions` and `getFunctionMap` method.
 ```javascript
@@ -74,6 +65,16 @@ scwin.i = function(){
 }
 ```
 
+## Source code
 
+When You click "Create Graph", this method is called.
+```java
+  public void drawGraph(String filePath, String fileName) {
 
-
+        String textInFile = getFileText(filePath); // get text from source file.
+        ArrayList<String> functions = getFunctions(textInFile); // get defined function
+        HashMap<String,ArrayList<String>> functionMap = getFunctionMap(functions,textInFile);
+        drawNode(functionMap,fileName); // draw graph
+        
+    }
+```
