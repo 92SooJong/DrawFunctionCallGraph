@@ -2,7 +2,12 @@
 
 
 I extract functions(mostly using substring) from source file and create function call graph using graphViz. 
-When You click "Create Graph", this method called.
+
+
+![image](./images/run.png)
+
+
+When You click "Create Graph", this method is called.
 ```java
   public void drawGraph(String filePath, String fileName) {
 
@@ -14,10 +19,7 @@ When You click "Create Graph", this method called.
     }
 ```
 
-
-This is my sample source file. Syntax is my company's in-house front-end solution. It's based on javascript.
-Javascript is interpreter language so I extract function by using only `substring`, `indexof` and `lastindexof`
-If you want to change the way of extracting functions and mapping functions, modify `getFunctions` and `getFunctionMap` method.
+This is my sample source file. Syntax is my company's in-house front-end solution. It's based on javascript. Javascript is interpreter language so I extract function by using only `substring`, `indexof` and `lastindexof`. If you want to change the way of extracting functions and mapping functions, modify `getFunctions` and `getFunctionMap` method.
 ```javascript
 
 
