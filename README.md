@@ -9,8 +9,7 @@ I made simple program for drawing function call graph with GraphViz.
 
 
 ## Sample File
-
-This is my sample source file. this is syntax of my company's in-house front-end engine. It's based on javascript. Javascript is interpreter language so I read all text and extract function by using only `substring`, `indexof` and `lastindexof`.
+This is my sample source file. this syntax is for my company's in-house front-end engine. It's based on Javascript. as you know, Javascript is interpreter language so I read all text and extract function by using only `substring`, `indexof` and `lastindexof`.
 ```javascript
 
 
