@@ -13,7 +13,7 @@ I extract functions(mostly using substring) from source file and create function
 
 ## Sample File
 
-This is my sample source file. Syntax is my company's in-house front-end solution. It's based on javascript. Javascript is interpreter language so I extract function by using only `substring`, `indexof` and `lastindexof`. If you want to change the way of extracting functions and mapping functions, modify `getFunctions` and `getFunctionMap` method.
+This is my sample source file. this is syntax of my company's in-house front-end engine. It's based on javascript. Javascript is interpreter language so I read all text and extract function by using only `substring`, `indexof` and `lastindexof`.
 ```javascript
 
 
@@ -67,7 +67,7 @@ scwin.i = function(){
 
 ## Source code
 
-When You click "Create Graph", this method is called.
+When You click "Create Graph", this method is called. If you want to change the way of extracting functions and mapping functions, modify `getFunctions` and `getFunctionMap` method.
 ```java
   public void drawGraph(String filePath, String fileName) {
 
