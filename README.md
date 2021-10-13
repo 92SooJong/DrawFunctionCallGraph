@@ -1,8 +1,5 @@
 # Draw Function Call Graph With graphviz
-
-
-
-I extract functions(mostly using substring) from source file and create function call graph using graphViz. 
+I made simple program for drawing function call graph with GraphViz. 
 
 ## Result
 
