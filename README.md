@@ -5,7 +5,7 @@
 
 
 
-### When You click "Create Graph", this method called. 
+#### When You click "Create Graph", this method called.
 ```java
   public void drawGraph(String filePath, String fileName) {
 
@@ -17,7 +17,10 @@
     }
 ```
 
-### This is my sample source file. Syntax is my company's in-house front-end solution. It's based on javascript.
+
+#### This is my sample source file. Syntax is my company's in-house front-end solution. It's based on javascript.
+#### Javascript is interpreter language so I extract function by using only `substring`, `indexof` and `lastindexof`
+#### If you want to change the way of extracting functions and mapping functions, modify `getFunctions` and `getFunctionMap` method.
 ```javascript
 
 
@@ -69,7 +72,6 @@ scwin.i = function(){
 }
 ```
 
-### Javascript is interpreter language so I extract function by using only `substring`, `indexof` and `lastindexof`
-### If you want to change the way of extracting functions and mapping functions, modify `getFunctions` and `getFunctionMap` method.
+
 
 
