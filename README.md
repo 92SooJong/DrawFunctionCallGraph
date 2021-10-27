@@ -61,7 +61,7 @@ scwin.i = function(){
 }
 ```
 
-## Source code
+## Core source code
 
 When You click "Create Graph", this method is called. If you want to change the way of extracting functions and mapping functions, modify `getFunctions` and `getFunctionMap` method.
 ```java
